@@ -29,7 +29,11 @@ func Start() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	var opts []grpc.ServerOption
-
+	// ALTS认证  只支持在GCP(Google Cloud Platform)上使用
+	// altsTC := alts.NewServerCreds(alts.DefaultServerOptions())
+	// opts = append(opts, grpc.Creds(altsTC))
+	// SSL/TLS认证
+	// opts = append(opts, grpc.Creds(credentials.NewServerTLSFromFile("","")))
 	grpcServer := grpc.NewServer(opts...)
 	v1.RegisterHelloWorldServiceServer(grpcServer, &service.HelloWorldServiceServer{})
 	grpcServer.Serve(lis)
