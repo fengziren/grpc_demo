@@ -1,10 +1,9 @@
 // Author: 枫梓亻
 // Date: 2022-04-18 18:06:41
-// LastEditTime: 2022-04-18 18:06:42
+// LastEditTime: 2022-04-19 10:43:53
 // LastEditors: 枫梓亻
 // Description:
 // FilePath: \grpc_demo\app\helloworld\app\client\client.go
-//
 
 package main
 
@@ -21,6 +20,11 @@ import (
 func main() {
 	var opts []grpc.DialOption
 	opts = append(opts, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	// ALTS认证  只支持在GCP(Google Cloud Platform)上使用
+	// altsTC := alts.NewClientCreds(alts.DefaultClientOptions())
+	// opts = append(opts, grpc.WithTransportCredentials(altsTC))
+	// SSL/TLS认证
+	// opts = append(opts, grpc.WithTransportCredentials(credentials.NewClientTLSFromFile("", "")))
 	conn, err := grpc.Dial("localhost:8080", opts...)
 	if err != nil {
 		fmt.Println(err)
